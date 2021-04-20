@@ -8,11 +8,14 @@
 
 import Foundation
 class AllSports {
-      var strTitle : String
-      var img : String
+        var idSport : String
+        var strSport :String
+        var strSportThumb : String
     
-    init(strTitle : String,img : String) {
-        self.strTitle=strTitle
-        self.img=img
+    init(idSport : String,strSport : String,strSportThumb:String) {
+        self.idSport=idSport
+        self.strSport=strSport
+        self.strSportThumb=strSportThumb
     }
 }
+
