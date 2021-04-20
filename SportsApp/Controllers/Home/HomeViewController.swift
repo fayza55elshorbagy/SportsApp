@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+import Alamofire
+import SDWebImage
 class HomeViewController: UIViewController {
     
     var arrayOfAllSports=[AllSports]()
@@ -15,21 +16,30 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var homeCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        let x1=AllSports(strTitle: "Moahmed", img:"")
-        let x2=AllSports(strTitle: "Abdallah", img: "abc")
-        let x3=AllSports(strTitle: "Ahmed", img: "abc")
-        let x4=AllSports(strTitle: "Moahmed", img: "abc")
-        let x5=AllSports(strTitle: "Fayza", img: "abc")
-        
-        arrayOfAllSports.append(x1)
-        arrayOfAllSports.append(x2)
-        arrayOfAllSports.append(x3)
-        arrayOfAllSports.append(x4)
-        arrayOfAllSports.append(x5)
+        let urlFile="https://www.thesportsdb.com/api/v1/json/1/all_sports.php"
+           Alamofire.request(urlFile).validate().responseJSON {response in
+                if let error=response.error{
+                    print("Error")
+                }else if let jsonDict=response.result.value as? [String :Any]{
+                    if let arr = jsonDict["sports"] as? [[String :Any]]{
+                        for i in 0...arr.count-1 {
+                            self.arrayOfAllSports.append(AllSports(idSport: arr[i]["idSport"] as! String,
+                                                              strSport: arr[i]["strSport"] as! String,
+                                                              strSportThumb: arr[i]["strSportThumb"] as! String))
+                            self.homeCollectionView.reloadData()
 
-        homeCollectionView.dataSource=self
-        homeCollectionView.delegate=self
-        homeCollectionView.collectionViewLayout=UICollectionViewFlowLayout()
+                        }
+                    }
+                }
+            }
+ 
+
+
+            //arrayOfAllSports=AllSportsApi().getAllSports()
+
+            homeCollectionView.dataSource=self
+            homeCollectionView.delegate=self
+            homeCollectionView.collectionViewLayout=UICollectionViewFlowLayout()
 
         // Do any additional setup after loading the view.
     }
@@ -43,7 +53,9 @@ extension HomeViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell=homeCollectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionViewCell", for: indexPath) as! HomeCollectionViewCell
         
-        cell.title.text=arrayOfAllSports[indexPath.row].strTitle
+        cell.title.text=arrayOfAllSports[indexPath.row].strSport
+                cell.img.contentMode = .scaleToFill
+                cell.img.sd_setImage(with: URL(string: arrayOfAllSports[indexPath.row].strSportThumb), placeholderImage: UIImage(named: "M"))
 
         
         return cell
@@ -52,13 +64,13 @@ extension HomeViewController : UICollectionViewDataSource{
 }
 extension HomeViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 200,height: 300)
+        return CGSize(width: (collectionView.frame.width/2.06), height: collectionView.frame.width/2.0)
     }
 }
 extension HomeViewController:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(arrayOfAllSports[indexPath.row].strTitle)
+        print(arrayOfAllSports[indexPath.row].idSport)
+        print(arrayOfAllSports[indexPath.row].strSport)
+        print(arrayOfAllSports[indexPath.row].strSportThumb)
     }
 }
-
-
