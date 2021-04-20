@@ -13,6 +13,7 @@ class Teams {
    
     // all Teams
     // https://www.thesportsdb.com/api/v1/json/1/lookup_all_teams.php?id=4328
+    // https://www.thesportsdb.com/api/v1/json/1/lookup_all_teams.php?id=4328
     // 4328 ->  idLeague
 
     init(idTeam:String,strTeamLogo:String) {
