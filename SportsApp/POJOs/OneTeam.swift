@@ -25,6 +25,9 @@ class OneTeam {
             
     // team details
     // https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id=2563
+    // https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id=2563
+    // https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id=2563
+    // https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id=2563
     // 2563 ->  idTeam
     
 
