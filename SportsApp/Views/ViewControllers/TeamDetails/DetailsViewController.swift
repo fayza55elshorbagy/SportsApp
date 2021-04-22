@@ -71,36 +71,6 @@ class DetailsViewController: UIViewController {
     }
 
     }
-    
-    func getAllTeams(urlFile:String,idTeam:String) {
-        /*
-        
-        let parameters: Parameters = ["id": Int(idTeam) ?? ""]
-        Alamofire.request(urlFile, method: .get, parameters: parameters, encoding: URLEncoding.default).responseJSON { (response) in
-            if let error=response.error{
-                    print("Error")
-                }else if let jsonDict=response.result.value as? [String :Any]{
-                    if let arr = jsonDict["teams"] as? [[String :Any]]
-                    {
-                        /*let teamDetails=OneTeam(idTeam: arr["idTeam"], strTeam: arr["strTeam"], intFormedYear: arr["intFormedYear"], strLeague: arr["strLeague"], strStadium: arr["strStadium"], strStadiumThumb: arr["strStadiumThumb"], strDescriptionEN: arr["strDescriptionEN"], strCountry: arr["strCountry"], strTeamLogo: arr["strTeamLogo"], strWebsite: arr["strWebsite"], strFacebook: arr["strFacebook"], strTwitter: arr["strTwitter"], strInstagram: arr["strInstagram"], strYoutube: arr["strYoutube"])
-                        */
-                        print("teamDetails")
-                        self.name.text=arr[0]["strTeam"] as! String
-                        self.country.text=arr[0]["strCountry"] as! String
-                        self.detail.text=arr[0]["strDescriptionEN"] as! String
-                        self.img.sd_setImage(with: URL(string: arr[0]["strStadiumThumb"] as! String), placeholderImage: UIImage(named: "placeholder.png"))
-                        
-                        self.imglogo.sd_setImage(with: URL(string: arr[0]["strTeamLogo"] as! String), placeholderImage: UIImage(named: "placeholder.png"))
-
-
-                    }
-                    else
-                    {
-                        print("ffffff")
-                    }
-                }
-            }
-*/
     }
  
 
