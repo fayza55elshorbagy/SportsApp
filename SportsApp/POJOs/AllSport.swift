@@ -7,14 +7,22 @@
 //
 
 import Foundation
-class AllSports {
-        var idSport : String
-        var strSport :String
-        var strSportThumb : String
 
-    init(idSport : String,strSport : String,strSportThumb:String) {
-        self.idSport=idSport
-        self.strSport=strSport
-        self.strSportThumb=strSportThumb
+struct AllSportsResponse:Codable{
+    var sports:[AllSports]?
+}
+struct AllSports : Codable {
+    
+    var idSport : String
+    var strSport :String
+    var strSportThumb : String
+    
+    
+    enum CodingKeys : String , CodingKey {
+        
+        case idSport = "idSport"
+        case strSport = "strSport"
+        case strSportThumb = "strSportThumb"
+        
     }
 }
