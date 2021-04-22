@@ -20,7 +20,7 @@ class AllTeamsService{
             .responseDecodable(of: TeamsResponse.self) { (response) in
                 switch response.result {
                 
-                case .success( _):
+                case .success( _):  
                     
                     guard let dataResponse = response.value else { return }
                     
