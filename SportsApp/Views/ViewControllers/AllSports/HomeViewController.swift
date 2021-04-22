@@ -18,28 +18,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let urlFile="https://www.thesportsdb.com/api/v1/json/1/all_sports.php"
-           Alamofire.request(urlFile).validate().responseJSON {response in
-                if let error=response.error{
-                    print("Error")
-                }else if let jsonDict=response.result.value as? [String :Any]{
-                    if let arr = jsonDict["sports"] as? [[String :Any]]{
-                        for i in 0...arr.count-1 {
-                            self.arrayOfAllSports.append(AllSports(idSport: arr[i]["idSport"] as! String,
-                                                              strSport: arr[i]["strSport"] as! String,
-                                                              strSportThumb: arr[i]["strSportThumb"] as! String))
-                            self.homeCollectionView.reloadData()
-
-                        }
-                    }
-                    self.homeCollectionView.reloadData()
-
-                }
-            }
- 
-
-
-            //arrayOfAllSports=AllSportsApi().getAllSports()
+        
         homeCollectionView.dataSource=self
         homeCollectionView.delegate=self
         homeCollectionView.collectionViewLayout=UICollectionViewFlowLayout()
@@ -105,12 +84,12 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout{
 }
 extension HomeViewController:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let leagueView : LeagueTableViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "LeagueTableViewController"))! as! LeagueTableViewController
+       // let leagueView : LeagueTableViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "LeagueTableViewController"))! as! LeagueTableViewController
         
-        leagueView.strSport = arrayOfAllSports[indexPath.row].strSport 
+       // leagueView.strSport = arrayOfAllSports[indexPath.row].strSport
         print(arrayOfAllSports[indexPath.row].idSport)
         print(arrayOfAllSports[indexPath.row].strSport)
         print(arrayOfAllSports[indexPath.row].strSportThumb)
-        self.navigationController?.pushViewController(leagueView, animated: true)
+       // self.navigationController?.pushViewController(leagueView, animated: true)
     }
 }

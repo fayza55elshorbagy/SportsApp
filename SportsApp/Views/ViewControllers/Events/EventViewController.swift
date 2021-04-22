@@ -7,12 +7,12 @@
 //
 
 import UIKit
-import Alamofire
 import SDWebImage
 class EventViewController: UIViewController {
 
     var arrayOfAllTeams = [AllTeams]()
     let allteamsViewModel = AllTeamsViewModel()
+    var id : String = "4328"
 
     @IBOutlet weak var teamsCollectionView: UICollectionView!
     
@@ -21,6 +21,7 @@ class EventViewController: UIViewController {
         super.viewDidLoad()
         
 
+        allteamsViewModel.setID(id : id)
         teamsCollectionView.dataSource=self
         teamsCollectionView.delegate=self
         
@@ -36,6 +37,9 @@ class EventViewController: UIViewController {
             
         }
         
+       // FavoriteViewModel().addToFavorite(favorite: AllLeagues(idLeague: "1252", strLeague: "Real Madrid", strLeagueThumb: "M", strYoutube: "www.youtube.com"))
+        //FavoriteViewModel().addToFavorite(favorite: AllLeagues(idLeague: "12525252", strLeague: "barcelona", strLeagueThumb: "M", strYoutube: "www.youtube.com"))
+
     }
     
     func onSuccessUpdateView(){

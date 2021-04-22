@@ -14,7 +14,7 @@ class AllTeamsService{
     func fetchAllTeamsData(idd:String,completion : @escaping ([AllTeams]?, Error?)->()){
         
             
-        let parameters: Parameters = ["id": Int(4328) ?? ""]
+        let parameters: Parameters = ["id": Int(idd) ?? ""]
         AF.request(URLs.getAllTeams,method: .get,parameters: parameters)
             .validate()
             .responseDecodable(of: TeamsResponse.self) { (response) in

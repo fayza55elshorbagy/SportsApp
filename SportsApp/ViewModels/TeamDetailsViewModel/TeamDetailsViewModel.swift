@@ -10,7 +10,6 @@ import Foundation
 class TeamDetailsViewModel: NSObject {
     
     var teamDetailsService :TeamDetailsService!
-    var idd:String=""
     
     var team :OneTeam! {
         didSet{
@@ -30,18 +29,20 @@ class TeamDetailsViewModel: NSObject {
     
     var bindTeamDetailsViewModelToView : (()->()) = {}
     var bindViewModelErrorToView : (()->()) = {}
-    
+        
     
     override init() {
         
         super .init()
         self.teamDetailsService = TeamDetailsService()
-        self.fetchTeamDetailsDataFromAPI(idd: idd)
+        //self.fetchTeamDetailsDataFromAPI(idd: idd)
     }
     
-    
+    func seturl(idTeam:String)  {
+        self.fetchTeamDetailsDataFromAPI(idd: idTeam)
+    }
     func fetchTeamDetailsDataFromAPI (idd:String){
-        
+            
         teamDetailsService.fetchTeamDetailsData(idd: idd, completion: { (team, error) in
             
             if let error : Error = error{
