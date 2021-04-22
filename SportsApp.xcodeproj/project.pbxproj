@@ -132,6 +132,7 @@
 		4C3F2AFF262DC16C00CFDD4E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4CE0725B262F64E600664CA7 /* New Group */,
 				4C288C4C262ECABE00145974 /* Event */,
 				4CBDFC86262E808D000098E9 /* Favorite */,
 				4C3F2B00262DC17900CFDD4E /* Home */,
@@ -165,6 +166,13 @@
 			children = (
 			);
 			path = Favorite;
+			sourceTree = "<group>";
+		};
+		4CE0725B262F64E600664CA7 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		5C386FDA7BE9BAD27CA2AA5F /* Pods */ = {
