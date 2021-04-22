@@ -30,6 +30,8 @@ class HomeViewController: UIViewController {
 
                         }
                     }
+                    self.homeCollectionView.reloadData()
+
                 }
             }
  

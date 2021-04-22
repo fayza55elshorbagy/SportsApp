@@ -55,8 +55,6 @@ class LeagueTableViewController: UITableViewController,UISearchBarDelegate {
                                                                             self.filteredData.append(arr[i]["strLeague"] as! String)
 
                                                                              self.tableView.reloadData()
-
-                                
                                                         }
                                                     }
                                                 }
@@ -67,7 +65,6 @@ class LeagueTableViewController: UITableViewController,UISearchBarDelegate {
                            }
                        }
                    }
-       
     }
 
     // MARK: - Table view data source
@@ -86,6 +83,11 @@ class LeagueTableViewController: UITableViewController,UISearchBarDelegate {
         return leaguesTitle.count
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let leagueDetailView : LeagueDetailsTableViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "LeagueDetailsTableViewController"))! as! LeagueDetailsTableViewController
+        leagueDetailView.leagueId =  arrayOfAllLeaguesId[indexPath.row]
+          self.navigationController?.pushViewController(leagueDetailView, animated: true)
+    }
     
 
     
@@ -135,4 +137,5 @@ class LeagueTableViewController: UITableViewController,UISearchBarDelegate {
     }
 
     }}
+
 
