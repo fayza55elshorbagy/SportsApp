@@ -6,6 +6,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C12456B2631E3D8003B9D08 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C12456A2631E3D8003B9D08 /* TableViewController.swift */; };
 		4C288C48262EC5F400145974 /* AllTeams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C288C47262EC5F400145974 /* AllTeams.swift */; };
 		4C288C5B262ECBF400145974 /* TeamsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C288C5A262ECBF400145974 /* TeamsTableViewCell.swift */; };
 		4C288C6B262F51E600145974 /* OneTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C288C6A262F51E600145974 /* OneTeam.swift */; };
@@ -71,6 +72,7 @@
 /* Begin PBXFileReference section */
 		25D9DF183BADA4C07F84EC6B /* Pods-SportsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsApp.debug.xcconfig"; path = "Target Support Files/Pods-SportsApp/Pods-SportsApp.debug.xcconfig"; sourceTree = "<group>"; };
 		38E397674CA5340233A36ED2 /* Pods-SportsAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsAppTests.release.xcconfig"; path = "Target Support Files/Pods-SportsAppTests/Pods-SportsAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		4C12456A2631E3D8003B9D08 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		4C288C47262EC5F400145974 /* AllTeams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTeams.swift; sourceTree = "<group>"; };
 		4C288C5A262ECBF400145974 /* TeamsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsTableViewCell.swift; sourceTree = "<group>"; };
 		4C288C6A262F51E600145974 /* OneTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTeam.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 			isa = PBXGroup;
 			children = (
 				4CE073AB2631905000664CA7 /* FavoriteTableViewController.swift */,
+				4C12456A2631E3D8003B9D08 /* TableViewController.swift */,
 				4CE073B02631935D00664CA7 /* FavoriteCustomCell.swift */,
 			);
 			path = Favorite;
@@ -755,6 +758,7 @@
 				E9637D23263436FD0003E41B /* UpcomingTableViewCell.swift in Sources */,
 				4CE073AC2631905000664CA7 /* FavoriteTableViewController.swift in Sources */,
 				4C288C48262EC5F400145974 /* AllTeams.swift in Sources */,
+				4C12456B2631E3D8003B9D08 /* TableViewController.swift in Sources */,
 				4CE0736D263129FC00664CA7 /* TeamDetailsService.swift in Sources */,
 				E9637D2A26348FB60003E41B /* AllLeaguesViewModel.swift in Sources */,
 				E9637D192633CB3D0003E41B /* EventsViewModel.swift in Sources */,

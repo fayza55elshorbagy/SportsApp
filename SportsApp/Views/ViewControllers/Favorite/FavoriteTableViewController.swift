@@ -27,6 +27,13 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
         
         
         
+//        addToFavorite(favorite: AllLeagues(idLeague: "1234", strLeague: "mohamed", strLeagueThumb: "", strYoutube: ""))
+//        addToFavorite(favorite: AllLeagues(idLeague: "253", strLeague: "Abdallah", strLeagueThumb: "", strYoutube: ""))
+//        addToFavorite(favorite: AllLeagues(idLeague: "745", strLeague: "Ahmed", strLeagueThumb: "", strYoutube: ""))
+//        addToFavorite(favorite: AllLeagues(idLeague: "865", strLeague: "ali", strLeagueThumb: "", strYoutube: ""))
+//        addToFavorite(favorite: AllLeagues(idLeague: "325", strLeague: "abcd/*", strLeagueThumb: "", strYoutube: ""))
+//
+ 
         fetchAllFavoriteLeaguesFromCoreData()
         
                 
@@ -51,6 +58,7 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
                 let message = error.localizedDescription
             }else{
                 self.arrayOfFavoriteLeagues = favoriteLeagues!
+                self.filteredFavoriteLeagues = favoriteLeagues!
                 self.tableView.reloadData()
 
             }
@@ -85,6 +93,7 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
     }
     func removeFromFavorite(idTeam:String) {
         favoriteViewModel.deleteFromFavorite(idTeam: idTeam)
+        fetchAllFavoriteLeaguesFromCoreData()
     }
 
 
@@ -97,13 +106,11 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-      /*  if isFiliterd {
+        if isFiliterd {
             return filteredFavoriteLeagues.count
         }else{
             return arrayOfFavoriteLeagues.count
         }
- */
-        return arrayOfFavoriteLeagues.count
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -117,7 +124,7 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FavoriteCustomCell
         
-       /* if isFiliterd {
+        if isFiliterd {
             cell.leagueTitle.text = filteredFavoriteLeagues[indexPath.row].strLeague
             cell.leagueImage.sd_setImage(with: URL(string: filteredFavoriteLeagues[indexPath.row].strLeagueThumb!), placeholderImage: UIImage(named: "M"))
         }else{
@@ -130,9 +137,18 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
                 //Do whatever you want to do when the button is tapped here
                 print("Pressed")
             }
- */
-        cell.leagueTitle.text = arrayOfFavoriteLeagues[indexPath.row].strLeague
+ 
         return cell
+    }
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            //tableView.deleteRows(at: [indexPath], with: .fade)
+            removeFromFavorite(idTeam: arrayOfFavoriteLeagues[indexPath.row].idLeague!)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
            return 60
@@ -145,13 +161,15 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
         }
         else{
             isFiliterd = true;
-          //  filteredFavoriteLeagues = searchText.isEmpty ? arrayOfFavoriteLeagues : arrayOfFavoriteLeagues.filter({(dataString : String) -> Bool in
-           //     return dataString.range(of: searchText,options: .caseInsensitive) != nil
-         //   })
+            filteredFavoriteLeagues=[]
+            for item in arrayOfFavoriteLeagues {
+                if (item.strLeague!.lowercased().contains(searchText.lowercased())) {
+                    filteredFavoriteLeagues.append(item)
+                }
+            }
             tableView.reloadData()
-
         }
+        tableView.reloadData()
+
     }
 }
-
-
