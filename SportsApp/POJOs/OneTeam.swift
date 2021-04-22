@@ -7,7 +7,12 @@
 //
 
 import Foundation
-class OneTeam {
+
+struct TeamDetailsResponse : Codable{
+    var teams:[OneTeam]?
+}
+struct OneTeam : Codable {
+    
     var idTeam:String
     var strTeam : String
     var intFormedYear:String
@@ -22,34 +27,6 @@ class OneTeam {
     var strTwitter : String
     var strInstagram : String
     var strYoutube : String
-            
-    // team details
-    // https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id=2563
-    // https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id=2563
-    // https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id=2563
-    // https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id=2563
-    // 2563 ->  idTeam
-    
-
-    init( idTeam:String,strTeam : String,     intFormedYear:String,     strLeague:String,     strStadium:String,     strStadiumThumb:String,
-          strDescriptionEN:String,     strCountry:String,     strTeamLogo:String,     strWebsite :String,     strFacebook : String,     strTwitter : String,
-          strInstagram : String,     strYoutube : String)
-    {
-        self.idTeam=idTeam
-        self.strTeam=strTeam
-        self.intFormedYear=intFormedYear
-        self.strLeague=strLeague
-        self.strStadium=strStadium
-        self.strStadiumThumb=strStadiumThumb
-        self.strDescriptionEN=strDescriptionEN
-        self.strCountry=strCountry
-        self.strTeamLogo=strTeamLogo
-        self.strWebsite = strWebsite
-        self.strFacebook = strFacebook
-        self.strTwitter = strTwitter
-        self.strInstagram = strInstagram
-        self.strYoutube = strYoutube
-    }
-
 }
+
 
