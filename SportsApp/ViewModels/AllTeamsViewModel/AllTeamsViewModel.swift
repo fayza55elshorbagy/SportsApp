@@ -10,7 +10,6 @@ import Foundation
 class AllTeamsViewModel: NSObject {
     
     var allTeamsService :AllTeamsService!
-    var idd:String=""
     
     var allTeams :[AllTeams]! {
         didSet{
@@ -37,7 +36,11 @@ class AllTeamsViewModel: NSObject {
         super .init()
         self.allTeamsService = AllTeamsService()
     }
-    
+    func setID(id:String) {
+        self.fetchAllTeamsDataFromAPI(idd: id)
+
+        
+    }
     
     func fetchAllTeamsDataFromAPI (idd:String){
         

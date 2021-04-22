@@ -28,6 +28,8 @@ class DetailsViewController: UIViewController {
         super.viewDidLoad()
         
        // var id:String="133604"
+        
+        teamDetailsViewModel.seturl(idTeam:id)
 
         teamDetailsViewModel.bindTeamDetailsViewModelToView = {
                     
@@ -39,7 +41,6 @@ class DetailsViewController: UIViewController {
             self.onFailUpdateView()
             
         }
-        teamDetailsViewModel.idd=id
 
     }
     
@@ -68,7 +69,7 @@ class DetailsViewController: UIViewController {
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
         
-    }
+     }
 
     }
     

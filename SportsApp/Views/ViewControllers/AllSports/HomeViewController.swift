@@ -21,7 +21,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //arrayOfAllSports=AllSportsApi().getAllSports()
+  
         homeCollectionView.dataSource=self
         homeCollectionView.delegate=self
         homeCollectionView.collectionViewLayout=UICollectionViewFlowLayout()
@@ -91,7 +91,7 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout{
 }
 extension HomeViewController:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let leagueView : LeagueTableViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "LeagueTableViewController"))! as! LeagueTableViewController
+       // let leagueView : LeagueTableViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "LeagueTableViewController"))! as! LeagueTableViewController
         
         leagueView.strSport = arrayOfAllSports[indexPath.row].strSport
         print(arrayOfAllSports[indexPath.row].idSport)
@@ -99,5 +99,6 @@ extension HomeViewController:UICollectionViewDelegate{
         print(arrayOfAllSports[indexPath.row].strSportThumb)
         //self.navigationController?.pushViewController(leagueView, animated: true)
         present(leagueView, animated: true, completion: nil)
+
     }
 }
