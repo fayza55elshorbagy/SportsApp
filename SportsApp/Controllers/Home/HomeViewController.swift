@@ -30,6 +30,8 @@ class HomeViewController: UIViewController {
 
                         }
                     }
+                    self.homeCollectionView.reloadData()
+
                 }
             }
  
@@ -69,8 +71,12 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout{
 }
 extension HomeViewController:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let leagueView : LeagueTableViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "LeagueTableViewController"))! as! LeagueTableViewController
+        
+        leagueView.strSport = arrayOfAllSports[indexPath.row].strSport 
         print(arrayOfAllSports[indexPath.row].idSport)
         print(arrayOfAllSports[indexPath.row].strSport)
         print(arrayOfAllSports[indexPath.row].strSportThumb)
+        self.navigationController?.pushViewController(leagueView, animated: true)
     }
 }
