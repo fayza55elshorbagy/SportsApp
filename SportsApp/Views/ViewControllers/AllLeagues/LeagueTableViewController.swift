@@ -63,13 +63,13 @@ class LeagueTableViewController: UITableViewController {
              
             cell.leagueTitle.text = league.strLeague
 
-            if let imgStr : String = league.strBadge{
-                cell.leagueImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
-                cell.leagueImage.sd_setImage(with: URL(string: imgStr), placeholderImage: UIImage(named: "tom"))
-                cell.leagueImage.layer.cornerRadius = cell.leagueImage.frame.size.height/2
-                 cell.leagueImage.layer.masksToBounds = false
-                 cell.leagueImage.clipsToBounds = true
-             }
+//            if let imgStr : String = league.strBadge{
+//                cell.leagueImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
+//                cell.leagueImage.sd_setImage(with: URL(string: imgStr), placeholderImage: UIImage(named: "tom"))
+//                cell.leagueImage.layer.cornerRadius = cell.leagueImage.frame.size.height/2
+//                 cell.leagueImage.layer.masksToBounds = false
+//                 cell.leagueImage.clipsToBounds = true
+//             }
              return cell
          }
          

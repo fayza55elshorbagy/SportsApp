@@ -64,4 +64,11 @@ class FavoriteViewModel: NSObject {
         })
         
     }
+    func isFavorite(idTeam : String)-> Bool{
+        if favoriteService.isFavorite(idTeam: idTeam) {
+            return true
+        }else{
+            return false
+        }
+    }
 }

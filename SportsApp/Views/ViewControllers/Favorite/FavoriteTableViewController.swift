@@ -25,8 +25,6 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
         tableView.dataSource = self
         searchBar.delegate = self
         
-        
-        
 //        addToFavorite(favorite: AllLeagues(idLeague: "1234", strLeague: "mohamed", strLeagueThumb: "", strYoutube: ""))
 //        addToFavorite(favorite: AllLeagues(idLeague: "253", strLeague: "Abdallah", strLeagueThumb: "", strYoutube: ""))
 //        addToFavorite(favorite: AllLeagues(idLeague: "745", strLeague: "Ahmed", strLeagueThumb: "", strYoutube: ""))
@@ -36,7 +34,8 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
  
         fetchAllFavoriteLeaguesFromCoreData()
         
-                
+       
+
         favoriteViewModel.bindAllFavoriteLeaguesViewModelToView = {
                     
             self.onSuccessUpdateView()

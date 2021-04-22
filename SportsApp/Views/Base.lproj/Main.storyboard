@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TtW-xr-6wv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="I6s-bt-z5C">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -70,22 +70,6 @@
             </objects>
             <point key="canvasLocation" x="541" y="702"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="4wt-mg-bsk">
-            <objects>
-                <viewController id="0h1-Dm-2V5" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Xff-ZH-QJX">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="0Xo-NG-ZcY"/>
-                        <color key="backgroundColor" systemColor="systemGreenColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="k0l-Qe-Oxw"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="h61-P1-e4I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2626.0869565217395" y="230.35714285714283"/>
-        </scene>
         <!--Favorite Table View Controller-->
         <scene sceneID="zEM-Xu-f5X">
             <objects>
@@ -139,13 +123,14 @@
                             <outlet property="delegate" destination="TtW-xr-6wv" id="Lis-mp-oSv"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="Wll-RM-gbq"/>
                     <connections>
                         <outlet property="searchBar" destination="pQt-Bb-Ntu" id="PpL-iK-gg3"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3HN-OP-yWp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3863.7681159420295" y="227.67857142857142"/>
+            <point key="canvasLocation" x="2678" y="230"/>
         </scene>
         <!--League Details Table View Controller-->
         <scene sceneID="cRg-FQ-C47">
@@ -352,9 +337,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OlL-LR-MJT">
-                                <rect key="frame" x="0.0" y="88" width="390" height="756"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OlL-LR-MJT">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jsS-0A-eEh">
                                     <size key="itemSize" width="189" height="207"/>
@@ -362,6 +346,11 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
+                                <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" id="RPt-6S-bcj">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="color" systemColor="systemRedColor"/>
+                                </activityIndicatorView>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HomeCollectionViewCell" id="ZsU-yL-Wbf" customClass="HomeCollectionViewCell" customModule="SportsApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="189" height="207"/>
@@ -400,11 +389,18 @@
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2x7-TW-iLm"/>
-                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="2x7-TW-iLm" firstAttribute="trailing" secondItem="OlL-LR-MJT" secondAttribute="trailing" id="9Ej-70-B0D"/>
+                            <constraint firstItem="OlL-LR-MJT" firstAttribute="top" secondItem="2x7-TW-iLm" secondAttribute="top" id="Fyn-JT-sV7"/>
+                            <constraint firstAttribute="bottom" secondItem="OlL-LR-MJT" secondAttribute="bottom" id="eJr-iB-eYd"/>
+                            <constraint firstItem="OlL-LR-MJT" firstAttribute="leading" secondItem="2x7-TW-iLm" secondAttribute="leading" id="xAX-Rz-nEh"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="lU9-TY-biZ"/>
                     <connections>
                         <outlet property="homeCollectionView" destination="OlL-LR-MJT" id="ObO-VJ-GKc"/>
+                        <outlet property="indicator" destination="RPt-6S-bcj" id="C7Z-VJ-iow"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3DZ-E3-FKW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -494,7 +490,7 @@
         <scene sceneID="Gko-Rd-4uI">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Gnz-IE-4hJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" id="QGi-qr-2Jj"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="house.fill" catalog="system" id="QGi-qr-2Jj"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vxf-Pf-raW">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -513,7 +509,7 @@
         <scene sceneID="Gys-fF-wb2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hpY-Nf-6ZY" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favorite" id="1ru-em-5hC"/>
+                    <tabBarItem key="tabBarItem" title="Favorite" image="heart" catalog="system" id="1ru-em-5hC"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="eNj-5K-3eb">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -521,7 +517,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="0h1-Dm-2V5" kind="relationship" relationship="rootViewController" id="ksF-oS-8N1"/>
+                        <segue destination="TtW-xr-6wv" kind="relationship" relationship="rootViewController" id="XiZ-Vh-DIQ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YMu-Em-f3z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -613,14 +609,19 @@
     </scenes>
     <resources>
         <image name="M" width="128" height="128"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="house.fill" catalog="system" width="128" height="106"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiarySystemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

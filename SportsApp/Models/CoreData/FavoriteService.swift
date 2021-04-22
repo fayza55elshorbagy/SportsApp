@@ -38,6 +38,19 @@ class FavoriteService {
         }
     }
     
+    func isFavorite(idTeam : String) -> Bool {
+        
+        let context = appDelegte!.persistentContainer.viewContext
+        if let array = fetchData(){
+                  for item in array {
+                      if item.value(forKey: "idLeague") as! String == idTeam{
+                          return true
+                      }
+                  }
+              
+          }
+        return false
+    }
     func deleteLeagueFromFavorite(idTeam:String) {
 
         let context = appDelegte!.persistentContainer.viewContext
@@ -81,8 +94,7 @@ class FavoriteService {
             completion(list,nil)
  
         }
- catch {
-            print("gggggggg")
+        catch {
             completion(nil , error)
         }
     }

@@ -8,15 +8,16 @@
 
 import UIKit
 import SDWebImage
-import AVFoundation
+import Foundation
 
+
+let reachability = try! Reachability()
 
 class HomeViewController: UIViewController {
     
     var arrayOfAllSports=[AllSports]()
     let allSportsViewModel = AllSportsViewModel()
-
-
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var homeCollectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -27,44 +28,52 @@ class HomeViewController: UIViewController {
         homeCollectionView.collectionViewLayout=UICollectionViewFlowLayout()
         homeCollectionView.layer.cornerRadius = 15
        // uiView.addSubview(createViewHeader()!)
-
-        allSportsViewModel.bindAllSportsViewModelToView = {
-                    
-            self.onSuccessUpdateView()
+        
+        ActivityIndicatorView.startAnimating(indicator: indicator)
+        if reachability.connection == .unavailable{
             
-        }
-        
-        allSportsViewModel.bindViewModelErrorToView = {
+            ActivityIndicatorView.stopAnimating(indicator: indicator)
+            showAlert(title:"Error",message:"No Internet Connection")
                     
-            self.onFailUpdateView()
-            
+        }else{
+            allSportsViewModel.bindAllSportsViewModelToView = {
+                self.onSuccessUpdateView()
+            }
+            allSportsViewModel.bindViewModelErrorToView = {
+                self.onFailUpdateView()
+            }
+                    
         }
-        
-        
+        do{
+            try reachability.startNotifier()
+           }catch{
+                print("error")
+            ActivityIndicatorView.stopAnimating(indicator: indicator)
+        }
     }
 
+   
     func onSuccessUpdateView(){
         
         arrayOfAllSports = allSportsViewModel.allSports
         self.homeCollectionView.reloadData()
+        ActivityIndicatorView.stopAnimating(indicator: self.indicator)
+
         
     }
     
-    func onFailUpdateView(){
-        
-       
-        let alert = UIAlertController(title: "Error", message: allSportsViewModel.showError, preferredStyle: .alert)
-        
-        let okAction  = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+    
+    func showAlert(title:String,message:String)
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction  = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in}
             
-        }
-        
-        
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
-        
     }
-    
+    func onFailUpdateView(){
+        showAlert(title: "Error", message: "Error Featching Data")
+    }
 }
 extension HomeViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -91,14 +100,14 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout{
 }
 extension HomeViewController:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       // let leagueView : LeagueTableViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "LeagueTableViewController"))! as! LeagueTableViewController
+        let leagueView : LeagueTableViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "LeagueTableViewController"))! as! LeagueTableViewController
         
         leagueView.strSport = arrayOfAllSports[indexPath.row].strSport
         print(arrayOfAllSports[indexPath.row].idSport)
         print(arrayOfAllSports[indexPath.row].strSport)
         print(arrayOfAllSports[indexPath.row].strSportThumb)
         //self.navigationController?.pushViewController(leagueView, animated: true)
-        present(leagueView, animated: true, completion: nil)
+       // present(leagueView, animated: true, completion: nil)
 
     }
 }
