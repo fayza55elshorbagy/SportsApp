@@ -89,6 +89,8 @@ let viewModel = AllLeaguesViewModel()
         leagueDetailScreen.leagueStr = leagueStrPressed
         leagueDetailScreen.league = self.league
         
+        self.urlLink = leagues[indexPath.section].strYoutube!
+
         
         
         present(leagueDetailScreen, animated: true, completion: nil)
@@ -132,6 +134,9 @@ let viewModel = AllLeaguesViewModel()
         return 30
        }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
+        print("abcd")
            let webView = segue.destination as! WebViewController
                
                if segue.identifier == "league"{
@@ -142,6 +147,9 @@ let viewModel = AllLeaguesViewModel()
     
     
     @objc func onClickedYoutubeButton(_ sender: Any?) {
+        print("xyz")
+
+        
         print(urlLink)
         self.performSegue(withIdentifier: "league", sender: self)
         print("tapped")

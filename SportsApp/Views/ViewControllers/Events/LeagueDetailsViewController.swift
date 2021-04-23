@@ -18,7 +18,7 @@ class LeagueDetailsViewController: UIViewController {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     //let eventService = EventsService()
-    let favViewModel = FavoriteViewModel()
+    let favoriteViewModel = FavoriteViewModel()
     let viewModel = EventsViewModel()
     var teamDetail = Teams()
     var league = LeaugeDetail()
@@ -33,7 +33,7 @@ class LeagueDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(leagueId)from 2" )
-        if(favViewModel.isFavorite(idTeam: leagueId)){
+        if(favoriteViewModel.isFavorite(idTeam: leagueId)){
             likeToggle.setImage(UIImage(named:"redHeart"), for: .normal)
 
         }
@@ -111,17 +111,17 @@ class LeagueDetailsViewController: UIViewController {
     
     @IBAction func likeToggle(_ sender: UIButton) {
 
-        let favScreen : FavoriteTableViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "FavoriteTableViewController"))! as! FavoriteTableViewController
-        print("iiiiii")
-        if(favViewModel.isFavorite(idTeam: leagueId)){
+       
+        if(favoriteViewModel.isFavorite(idTeam: leagueId)){
             likeToggle.setImage(UIImage(named:"309056-64"), for: .normal)
-            favViewModel.deleteFromFavorite(idTeam: leagueId)
-            print("already fav")
+            favoriteViewModel.deleteFromFavorite(idTeam: leagueId)
+            print("deleted")
         }
         else{
             likeToggle.setImage(UIImage(named:"redHeart"), for: .normal)
-            favScreen.addToFavorite(favorite: self.league)
-            present(favScreen, animated: true, completion: nil)
+            print(self.league)
+            favoriteViewModel.addToFavorite(favorite: self.league)
+            
 
         }
         

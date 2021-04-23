@@ -18,6 +18,13 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
     var filteredFavoriteLeagues=[LeaugeDetail]()
     var isFiliterd:Bool=false
     var urlLink : String = ""
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchAllFavoriteLeaguesFromCoreData()
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,12 +32,6 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
         tableView.dataSource = self
         searchBar.delegate = self
         
-    
- 
-        fetchAllFavoriteLeaguesFromCoreData()
-        
-       
-
         favoriteViewModel.bindAllFavoriteLeaguesViewModelToView = {
                     
             self.onSuccessUpdateView()
@@ -82,9 +83,7 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
         self.present(alert, animated: true, completion: nil)
         
     }
-    func addToFavorite(favorite:LeaugeDetail)  {
-        favoriteViewModel.addToFavorite(favorite: favorite)
-    }
+    
     func removeFromFavorite(idTeam:String) {
         favoriteViewModel.deleteFromFavorite(idTeam: idTeam)
         fetchAllFavoriteLeaguesFromCoreData()
