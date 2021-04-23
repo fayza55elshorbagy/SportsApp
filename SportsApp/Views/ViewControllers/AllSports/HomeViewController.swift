@@ -107,7 +107,7 @@ extension HomeViewController:UICollectionViewDelegate{
         print(arrayOfAllSports[indexPath.row].strSport)
         print(arrayOfAllSports[indexPath.row].strSportThumb)
         //self.navigationController?.pushViewController(leagueView, animated: true)
-       // present(leagueView, animated: true, completion: nil)
+        present(leagueView, animated: true, completion: nil)
 
     }
 }

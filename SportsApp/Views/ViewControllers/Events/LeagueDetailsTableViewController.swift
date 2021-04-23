@@ -9,6 +9,8 @@
 import UIKit
 
 class LeagueDetailsTableViewController: UITableViewController {
+    
+    let favoriteViewModel = FavoriteViewModel()
       
       var leagueId : String?{
          didSet {
@@ -18,6 +20,15 @@ class LeagueDetailsTableViewController: UITableViewController {
           super.viewDidLoad()
        
           navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTapped))
+        let x = favoriteViewModel.isFavorite(idTeam: leagueId!)
+        if x {
+            // is favorite pic
+        }else
+        {
+            // not favorite pic
+        }
+        // to insert
+       // favoriteViewModel.addToFavorite(favorite: <#T##AllLeagues#>)
           //custom bar button
           /*
           let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
@@ -72,3 +83,16 @@ class LeagueDetailsTableViewController: UITableViewController {
       }
      
 }
+extension LeagueDetailsTableViewController :UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        print("hhgdf")
+        let leagueView : TeamDetailsViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController"))! as! TeamDetailsViewController
+        
+        leagueView.id = self.leagueId!
+        
+        present(leagueView, animated: true, completion: nil)
+
+    }
+}
+

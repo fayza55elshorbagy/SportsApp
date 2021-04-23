@@ -31,6 +31,7 @@ class AllLeaguesViewModel{
             if let comingLeauges:[AllLeague] = leagues{
                 self.allLeagues = comingLeauges
                 print("count is \(self.allLeagues.count)")
+                
                 self.getAllLeaguesDetail()
             }else{
                 print("NotWroking")
@@ -38,6 +39,8 @@ class AllLeaguesViewModel{
             }
         }
     }
+    
+    
     
     func getAllLeaguesDetail(){
         
@@ -47,9 +50,13 @@ class AllLeaguesViewModel{
                     if let detail:League = leagueDetail{
                         self.league.append(detail)
                         print("dddddddd\(detail)")
-                        self.leaguesDetailCompleted = self.league
+                        //self.leaguesDetailCompleted = self.league
+                        print("hhhhhhhhhhhhhhhhhhhhh")
+                        print(detail.idLeague)
                         
                     }
+                    print("Modsfjsfiluhdsuif")
+                    print(self.league.count)
                 }
             }
         

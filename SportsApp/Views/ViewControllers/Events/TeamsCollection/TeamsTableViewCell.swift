@@ -64,8 +64,19 @@ class TeamsTableViewCell: UITableViewCell {
           
 
       extension TeamsTableViewCell:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
-              
-              
+        
+//        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//            
+//            print("hhgdf")
+//            let leagueView : TeamDetailsViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController"))! as! TeamDetailsViewController
+//            
+//            leagueView.id = self.leagueId!
+//            
+//            present(leagueView, animated: true, completion: nil)
+//
+//        }
+        
+    
               func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
                 return arrayOfAllTeams.count
               }
