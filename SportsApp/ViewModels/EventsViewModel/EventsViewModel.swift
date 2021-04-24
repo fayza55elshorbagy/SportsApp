@@ -1,21 +1,20 @@
 //
-//  AllTeamsViewModel.swift
+//  EventsViewModel.swift
 //  SportsApp
 //
-//  Created by Mohamed Abdallah on 4/22/21.
+//  Created by fayza on 4/23/21.
 //  Copyright © 2021 fayza. All rights reserved.
 //
-
 import Foundation
-class AllTeamsViewModel: NSObject {
+
+class EventsViewModel: NSObject {
     
-    var allTeamsService :AllTeamsService!
-    var idd:String=""
-    
-    var allTeams :[AllTeams]! {
+    var eventsService : EventsService!
+   
+    var events : [[String : String?]]! {
         didSet{
             
-            self.bindAllTeamsViewModelToView()
+            self.bindEventsViewModelToView()
         }
         
     }
@@ -28,20 +27,20 @@ class AllTeamsViewModel: NSObject {
         
     }
     
-    var bindAllTeamsViewModelToView : (()->()) = {}
+    var bindEventsViewModelToView : (()->()) = {}
     var bindViewModelErrorToView : (()->()) = {}
     
     
     override init() {
         
         super .init()
-        self.allTeamsService = AllTeamsService()
+        self.eventsService = EventsService()
     }
     
     
-    func fetchAllTeamsDataFromAPI (idd:String){
+    func fetchEventsDataFromAPI (id:String){
         
-        allTeamsService.fetchAllTeamsData(idd: idd, completion: { (allTeams, error) in
+        eventsService.fetchEventsData(id: id, completion: { (event, error) in
             
             if let error : Error = error{
                 
@@ -50,7 +49,7 @@ class AllTeamsViewModel: NSObject {
                 
             }else{
                 
-                self.allTeams = allTeams
+                self.events = event
                 
             }
            
@@ -58,4 +57,5 @@ class AllTeamsViewModel: NSObject {
     }
 
 }
+
 

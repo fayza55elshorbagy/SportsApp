@@ -8,6 +8,9 @@
 
 import UIKit
 import SDWebImage
+import AVFoundation
+
+
 class HomeViewController: UIViewController {
     
     var arrayOfAllSports=[AllSports]()
@@ -18,31 +21,12 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let urlFile="https://www.thesportsdb.com/api/v1/json/1/all_sports.php"
-           Alamofire.request(urlFile).validate().responseJSON {response in
-                if let error=response.error{
-                    print("Error")
-                }else if let jsonDict=response.result.value as? [String :Any]{
-                    if let arr = jsonDict["sports"] as? [[String :Any]]{
-                        for i in 0...arr.count-1 {
-                            self.arrayOfAllSports.append(AllSports(idSport: arr[i]["idSport"] as! String,
-                                                              strSport: arr[i]["strSport"] as! String,
-                                                              strSportThumb: arr[i]["strSportThumb"] as! String))
-                            self.homeCollectionView.reloadData()
-
-                        }
-                    }
-                    self.homeCollectionView.reloadData()
-
-                }
-            }
- 
-
-
-            //arrayOfAllSports=AllSportsApi().getAllSports()
+        //arrayOfAllSports=AllSportsApi().getAllSports()
         homeCollectionView.dataSource=self
         homeCollectionView.delegate=self
         homeCollectionView.collectionViewLayout=UICollectionViewFlowLayout()
+        homeCollectionView.layer.cornerRadius = 15
+       // uiView.addSubview(createViewHeader()!)
 
         allSportsViewModel.bindAllSportsViewModelToView = {
                     
@@ -56,8 +40,9 @@ class HomeViewController: UIViewController {
             
         }
         
+        
     }
-    
+
     func onSuccessUpdateView(){
         
         arrayOfAllSports = allSportsViewModel.allSports
@@ -91,6 +76,7 @@ extension HomeViewController : UICollectionViewDataSource{
         
         cell.title.text=arrayOfAllSports[indexPath.row].strSport
                 cell.img.contentMode = .scaleToFill
+                cell.img.clipsToBounds = true
                 cell.img.sd_setImage(with: URL(string: arrayOfAllSports[indexPath.row].strSportThumb), placeholderImage: UIImage(named: "M"))
 
         
@@ -107,10 +93,11 @@ extension HomeViewController:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let leagueView : LeagueTableViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "LeagueTableViewController"))! as! LeagueTableViewController
         
-        leagueView.strSport = arrayOfAllSports[indexPath.row].strSport 
+        leagueView.strSport = arrayOfAllSports[indexPath.row].strSport
         print(arrayOfAllSports[indexPath.row].idSport)
         print(arrayOfAllSports[indexPath.row].strSport)
         print(arrayOfAllSports[indexPath.row].strSportThumb)
-        self.navigationController?.pushViewController(leagueView, animated: true)
+        //self.navigationController?.pushViewController(leagueView, animated: true)
+        present(leagueView, animated: true, completion: nil)
     }
 }

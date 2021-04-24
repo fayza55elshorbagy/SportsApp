@@ -13,6 +13,11 @@ struct URLs {
     public static var getAllTeams : String = "https://www.thesportsdb.com/api/v1/json/1/lookup_all_teams.php?id="
     public static var getTeamDetails : String = "https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id="
 
+    public static var getAllLeagues : String = "https://www.thesportsdb.com/api/v1/json/1/all_leagues.php"
+    
+     public static var getLeagueDetails : String = "https://www.thesportsdb.com/api/v1/json/1/lookupleague.php?id="
+    
+    public static var getEvents : String = "https://www.thesportsdb.com/api/v1/json/1/eventspastleague.php?id="
 
     
 }
