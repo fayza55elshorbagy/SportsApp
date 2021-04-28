@@ -109,6 +109,7 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let leagueDetailView : LeagueDetailsViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "LeagueDetailsViewController"))! as! LeagueDetailsViewController
+        print(arrayOfFavoriteLeagues)
         leagueDetailView.leagueId =  arrayOfFavoriteLeagues[indexPath.row].idLeague!
         if reachability.connection == .unavailable{
                showAlert(title:"Error",message:"No Internet Connection")

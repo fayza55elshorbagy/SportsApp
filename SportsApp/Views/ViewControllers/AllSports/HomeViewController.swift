@@ -91,6 +91,7 @@ extension HomeViewController : UICollectionViewDataSource{
                 cell.img.contentMode = .scaleToFill
                 cell.img.clipsToBounds = true
                 cell.img.sd_setImage(with: URL(string: arrayOfAllSports[indexPath.row].strSportThumb), placeholderImage: UIImage(named: "M"))
+                cell.img.layer.cornerRadius = 15
 
         
         return cell

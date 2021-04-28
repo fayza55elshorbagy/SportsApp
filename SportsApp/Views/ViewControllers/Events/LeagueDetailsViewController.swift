@@ -28,10 +28,15 @@ class LeagueDetailsViewController: UIViewController {
     var passedEvents = [Event]()
     var comingEvents = [Event]()
     var comingEventError = ""
+    var flag = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(leagueId)from 2" )
+        if(favViewModel.isFavorite(idTeam: leagueId)){
+            likeToggle.setImage(UIImage(named:"redHeart"), for: .normal)
+
+        }
 
     }
     
@@ -107,15 +112,19 @@ class LeagueDetailsViewController: UIViewController {
     @IBAction func likeToggle(_ sender: UIButton) {
 
         let favScreen : FavoriteTableViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "FavoriteTableViewController"))! as! FavoriteTableViewController
-        likeToggle.setImage(UIImage(named:"redHeart"), for: .normal)
-        likeToggle.isEnabled = false
+        print("iiiiii")
         if(favViewModel.isFavorite(idTeam: leagueId)){
+            likeToggle.setImage(UIImage(named:"309056-64"), for: .normal)
+            favViewModel.deleteFromFavorite(idTeam: leagueId)
             print("already fav")
-        }else{
+        }
+        else{
+            likeToggle.setImage(UIImage(named:"redHeart"), for: .normal)
             favScreen.addToFavorite(favorite: self.league)
+            present(favScreen, animated: true, completion: nil)
 
         }
-        present(favScreen, animated: true, completion: nil)
+        
     }
 }
 
@@ -172,7 +181,9 @@ extension LeagueDetailsViewController : UICollectionViewDelegate, UICollectionVi
             print("iiiiiimg away\(imgAway)")
             cell.awayImg.sd_imageIndicator = SDWebImageActivityIndicator.gray
             cell.awayImg.sd_setImage(with: URL(string: imgAway), placeholderImage: UIImage(named: "holder"))
-
+            cell.layer.shadowColor = UIColor.black.cgColor
+            cell.layer.shadowOffset = CGSize(width: 0, height: 0)
+            cell.layer.shadowOpacity = 0.6
             
             return cell
             
@@ -200,6 +211,10 @@ extension LeagueDetailsViewController : UICollectionViewDelegate, UICollectionVi
             
             cell.awayImg.sd_imageIndicator = SDWebImageActivityIndicator.gray
             cell.awayImg.sd_setImage(with: URL(string: imgAway), placeholderImage: UIImage(named: "holder"))
+            cell.layer.cornerRadius = 25
+            cell.layer.borderWidth = 1
+            cell.layer.shadowOffset = CGSize(width: 0, height: 0)
+            cell.layer.shadowOpacity = 0.6
             return cell
             
         }else{
@@ -211,7 +226,8 @@ extension LeagueDetailsViewController : UICollectionViewDelegate, UICollectionVi
             let img = teams[indexPath.row].strTeamBadge!
             cell.teamImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
             cell.teamImage.sd_setImage(with: URL(string: img), placeholderImage: UIImage(named: "holder"))
-            
+            cell.layer.shadowOffset = CGSize(width: 0, height: 0)
+            cell.layer.shadowOpacity = 0.6
             
             return cell
         }

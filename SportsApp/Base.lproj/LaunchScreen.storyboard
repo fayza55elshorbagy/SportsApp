@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,15 +12,52 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="u5U-6S-g8B">
+                                <rect key="frame" x="132" y="373" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="B13-5j-mkv"/>
+                                    <constraint firstAttribute="width" constant="150" id="Per-hL-pMI"/>
+                                    <constraint firstAttribute="width" secondItem="u5U-6S-g8B" secondAttribute="height" id="i0A-8V-fLb"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="yellow" translatesAutoresizingMaskIntoConstraints="NO" id="aiI-rD-cM3">
+                                <rect key="frame" x="-168" y="732.5" width="400" height="213.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="400" id="OMI-38-AnQ"/>
+                                    <constraint firstAttribute="width" secondItem="aiI-rD-cM3" secondAttribute="height" multiplier="15:8" id="qq6-us-deU"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="yellow" translatesAutoresizingMaskIntoConstraints="NO" id="gDv-Qa-ZZQ">
+                                <rect key="frame" x="214" y="-60" width="300" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gDv-Qa-ZZQ" secondAttribute="height" multiplier="15:8" id="rG5-bg-5pX"/>
+                                    <constraint firstAttribute="width" constant="300" id="yXT-uL-E8e"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="gDv-Qa-ZZQ" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="-60" id="3cS-S7-bBf"/>
+                            <constraint firstItem="u5U-6S-g8B" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="43R-9l-cjb"/>
+                            <constraint firstAttribute="trailing" secondItem="gDv-Qa-ZZQ" secondAttribute="trailing" constant="-100" id="H9L-g5-dTV"/>
+                            <constraint firstItem="gDv-Qa-ZZQ" firstAttribute="width" secondItem="gDv-Qa-ZZQ" secondAttribute="height" multiplier="15:8" id="HrO-Wi-IDJ"/>
+                            <constraint firstAttribute="bottom" secondItem="aiI-rD-cM3" secondAttribute="bottom" constant="-50" id="Oy3-ji-crZ"/>
+                            <constraint firstItem="u5U-6S-g8B" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Wh5-dM-jgE"/>
+                            <constraint firstItem="aiI-rD-cM3" firstAttribute="leading" secondItem="u5U-6S-g8B" secondAttribute="leading" constant="-300" id="dua-t5-1Q1"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logo" width="128" height="128"/>
+        <image name="yellow" width="720" height="720"/>
+    </resources>
 </document>

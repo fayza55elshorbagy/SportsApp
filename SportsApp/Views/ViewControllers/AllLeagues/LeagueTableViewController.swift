@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 import SDWebImage
-
+import SkeletonView
 class LeagueTableViewController: UITableViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
@@ -24,13 +24,33 @@ let viewModel = AllLeaguesViewModel()
     var leagueStrPressed : String!
     var urlLink : String = "www.youtube.com/user/superleaguegreecenet"
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("first")
+
+        tableView.isSkeletonable = true
+        tableView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .lightGray), animation: nil, transition: .crossDissolve(0.25))
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.delegate = self
-        viewModel.bindLeaguesToView = {
-            self.didReciveLeague()
-        }
-        viewModel.getAllLeagues(sportName: Strsport)
+        print("second")
+
+        self.searchBar.delegate = self
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+            if(self.leagues.count > 0){
+                self.tableView.stopSkeletonAnimation()
+                self.view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+            }
+            else{
+                
+            }
+                  })
+        self.viewModel.bindLeaguesToView = {
+                    self.didReciveLeague()
+                          }
+        self.viewModel.getAllLeagues(sportName: self.Strsport)
+       
     }
     func didReciveLeague(){
         leagues = viewModel.leaguesDetailCompleted
@@ -42,23 +62,28 @@ let viewModel = AllLeaguesViewModel()
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         if isFiltered {
             return leaguesSearch.count
         }
         return leagues.count
     }
 
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return 1
+
+    }
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let leagueDetailScreen : LeagueDetailsViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "LeagueDetailsViewController"))! as! LeagueDetailsViewController
         
-        leagueIdPressed = leagues[indexPath.row].idLeague!
-        leagueStrPressed = leagues[indexPath.row].strLeague!
-        league = leagues[indexPath.row]
+        leagueIdPressed = leagues[indexPath.section].idLeague!
+        leagueStrPressed = leagues[indexPath.section].strLeague!
+        league = leagues[indexPath.section]
         
         leagueDetailScreen.leagueId = leagueIdPressed
         leagueDetailScreen.leagueStr = leagueStrPressed
@@ -68,6 +93,8 @@ let viewModel = AllLeaguesViewModel()
         
         present(leagueDetailScreen, animated: true, completion: nil)
     }
+    
+    
     
    
     
@@ -79,19 +106,31 @@ let viewModel = AllLeaguesViewModel()
         var league : LeaugeDetail!
 
            if isFiltered {
-               league = leaguesSearch[indexPath.row]
+               league = leaguesSearch[indexPath.section]
            }else{
-               league = leagues[indexPath.row]
+               league = leagues[indexPath.section]
            }
            
           cell.leagueTitle.text = league.strLeague
-          self.urlLink = leagues[indexPath.row].strYoutube!
+          self.urlLink = leagues[indexPath.section].strYoutube!
            if let imgStr = league.strBadge{
                cell.leagueImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
                cell.leagueImage.sd_setImage(with: URL(string: imgStr), placeholderImage: UIImage(named: "holder"))
            }
+        cell.leagueImage.layer.cornerRadius = cell.leagueImage.frame.size.height/2
+        cell.leagueImage.layer.masksToBounds = false
+        cell.leagueImage.clipsToBounds = true
+      
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOffset = CGSize(width: 0, height: 0)
+        cell.layer.shadowOpacity = 0.6
+       
            return cell
     }
+    // Set the spacing between sections
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+       }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
            let webView = segue.destination as! WebViewController
                
@@ -100,7 +139,7 @@ let viewModel = AllLeaguesViewModel()
                }
            }
    
-     
+    
     
     @objc func onClickedYoutubeButton(_ sender: Any?) {
         print(urlLink)
@@ -110,7 +149,7 @@ let viewModel = AllLeaguesViewModel()
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 63.0
+        return 80.0
     }
     
     
@@ -118,7 +157,7 @@ let viewModel = AllLeaguesViewModel()
 }
 
 
-     extension LeagueTableViewController : UISearchBarDelegate {
+     extension LeagueTableViewController : UISearchBarDelegate, SkeletonTableViewDataSource {
          
          func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
              if searchText.count == 0{
@@ -130,5 +169,15 @@ let viewModel = AllLeaguesViewModel()
                  tableView.reloadData()
              }
          }
+        
+        func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+            return "leaguesCell"
+        }
+        
+        func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return 10
+        }
+        
+        
          
      }

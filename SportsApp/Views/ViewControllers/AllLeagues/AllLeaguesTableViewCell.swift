@@ -14,13 +14,17 @@ class AllLeaguesTableViewCell: UITableViewCell {
      @IBOutlet weak var leagueImage: UIImageView!
   
 
+    @IBOutlet weak var backView: UIView!
     @IBOutlet weak var youtubeButton: UIButton!
-//    @IBAction func btnRec(_ sender: Any) {
-//        bRec = !bRec
-//        if bRec {
-//            youtubeButton.setImage(UIImage(named: "MicOn.png"), for: .normal)
-//        } else {
-//            youtubeButton.setImage(UIImage(named: "MicOff.png"), for: .normal)
-//        }
-//    }
+override func awakeFromNib() {
+    super.awakeFromNib()
+
+
+    self.backView.layer.borderWidth = 1
+    self.backView.layer.cornerRadius = 25
+    self.backView.clipsToBounds = true
+
+}
+    
+    
 }

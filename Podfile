@@ -11,6 +11,7 @@ target 'SportsApp' do
 
 	pod 'SDWebImage', '~> 5.0'
 	
+        pod 'SkeletonView'
 
   target 'SportsAppTests' do
     inherit! :search_paths
