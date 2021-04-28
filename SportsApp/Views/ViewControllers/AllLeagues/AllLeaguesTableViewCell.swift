@@ -12,18 +12,7 @@ class AllLeaguesTableViewCell: UITableViewCell {
 
      @IBOutlet weak var leagueTitle: UILabel!
      @IBOutlet weak var leagueImage: UIImageView!
-     var yourobj : (() -> Void)? = nil
-
-       @IBAction func btnAction(sender: UIButton)
-       {
-           if let btnAction = self.yourobj
-           {
-               btnAction()
-             //  user!("pass string")
-           }
-       }
-//
-    var bRec:Bool = true
+  
 
     @IBOutlet weak var youtubeButton: UIButton!
 //    @IBAction func btnRec(_ sender: Any) {

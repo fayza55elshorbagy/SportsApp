@@ -11,13 +11,13 @@ import SDWebImage
 class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
-    var arrayOfFavoriteLeagues=[AllLeagues]()
+    var arrayOfFavoriteLeagues=[LeaugeDetail]()
     let favoriteViewModel = FavoriteViewModel()
-    
+    var league = LeaugeDetail()
     // search
-    var filteredFavoriteLeagues=[AllLeagues]()
+    var filteredFavoriteLeagues=[LeaugeDetail]()
     var isFiliterd:Bool=false
-
+    var urlLink : String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,12 +25,7 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
         tableView.dataSource = self
         searchBar.delegate = self
         
-//        addToFavorite(favorite: AllLeagues(idLeague: "1234", strLeague: "mohamed", strLeagueThumb: "", strYoutube: ""))
-//        addToFavorite(favorite: AllLeagues(idLeague: "253", strLeague: "Abdallah", strLeagueThumb: "", strYoutube: ""))
-//        addToFavorite(favorite: AllLeagues(idLeague: "745", strLeague: "Ahmed", strLeagueThumb: "", strYoutube: ""))
-//        addToFavorite(favorite: AllLeagues(idLeague: "865", strLeague: "ali", strLeagueThumb: "", strYoutube: ""))
-//        addToFavorite(favorite: AllLeagues(idLeague: "325", strLeague: "abcd/*", strLeagueThumb: "", strYoutube: ""))
-//
+    
  
         fetchAllFavoriteLeaguesFromCoreData()
         
@@ -46,7 +41,7 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
                     
             self.onFailUpdateView()
             
-        }        
+        }
     }
     
     func fetchAllFavoriteLeaguesFromCoreData (){
@@ -87,7 +82,7 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
         self.present(alert, animated: true, completion: nil)
         
     }
-    func addToFavorite(favorite:AllLeagues)  {
+    func addToFavorite(favorite:LeaugeDetail)  {
         favoriteViewModel.addToFavorite(favorite: favorite)
     }
     func removeFromFavorite(idTeam:String) {
@@ -113,9 +108,14 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //let leagueDetailView : LeagueDetailsTableViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "LeagueDetailsTableViewController"))! as! LeagueDetailsTableViewController
-        //leagueDetailView.leagueId =  arrayOfAllLeaguesId[indexPath.row]
-          //self.navigationController?.pushViewController(leagueDetailView, animated: true)
+        let leagueDetailView : LeagueDetailsViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "LeagueDetailsViewController"))! as! LeagueDetailsViewController
+        leagueDetailView.leagueId =  arrayOfFavoriteLeagues[indexPath.row].idLeague!
+        if reachability.connection == .unavailable{
+               showAlert(title:"Error",message:"No Internet Connection")
+            
+        }else{
+         present(leagueDetailView, animated: true,completion: nil)
+        }
     }
     
 
@@ -125,20 +125,42 @@ class FavoriteTableViewController: UITableViewController,UISearchBarDelegate {
         
         if isFiliterd {
             cell.leagueTitle.text = filteredFavoriteLeagues[indexPath.row].strLeague
-            cell.leagueImage.sd_setImage(with: URL(string: filteredFavoriteLeagues[indexPath.row].strLeagueThumb!), placeholderImage: UIImage(named: "M"))
+            cell.leagueImage.sd_setImage(with: URL(string: filteredFavoriteLeagues[indexPath.row].strBadge!), placeholderImage: UIImage(named: "holder"))
         }else{
-        
-            cell.leagueTitle.text = arrayOfFavoriteLeagues[indexPath.row].strLeague
-            cell.leagueImage.sd_setImage(with: URL(string: arrayOfFavoriteLeagues[indexPath.row].strLeagueThumb!), placeholderImage: UIImage(named: "M"))
+                cell.leagueTitle.text = arrayOfFavoriteLeagues[indexPath.row].strLeague
+                cell.leagueImage.sd_setImage(with: URL(string: arrayOfFavoriteLeagues[indexPath.row].strBadge!), placeholderImage: UIImage(named: "holder"))
         }
         cell.yourobj =
-            {
-                //Do whatever you want to do when the button is tapped here
+            { if reachability.connection == .unavailable{
+                self.showAlert(title:"Error",message:"No Internet Connection")
+
+                }
+            else{
+                self.urlLink = self.arrayOfFavoriteLeagues[indexPath.row].strYoutube!
+                self.performSegue(withIdentifier: "favorite", sender: self)
                 print("Pressed")
+                }
+                
             }
  
         return cell
     }
+    func showAlert(title:String,message:String)
+       {
+           let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+           let okAction  = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in}
+               
+           alert.addAction(okAction)
+           self.present(alert, animated: true, completion: nil)
+       }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            let webView = segue.destination as! WebViewController
+                
+                if segue.identifier == "favorite"{
+                    webView.link = "https://" + urlLink
+                }
+            }
+  
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {

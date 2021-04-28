@@ -17,7 +17,13 @@ struct URLs {
     
      public static var getLeagueDetails : String = "https://www.thesportsdb.com/api/v1/json/1/lookupleague.php?id="
     
-    public static var getEvents : String = "https://www.thesportsdb.com/api/v1/json/1/eventspastleague.php?id="
+    
+    
+     public static let teamsInLeague = "https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l="
+    
+      public static let passedEventsLeague = "https://www.thesportsdb.com/api/v1/json/1/eventspastleague.php?id="
+    
+      public static let comingEventFromSeason = "https://www.thesportsdb.com/api/v1/json/1/eventsround.php?id="
 
     
 }

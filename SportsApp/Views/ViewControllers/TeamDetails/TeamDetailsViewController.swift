@@ -32,7 +32,8 @@ class TeamDetailsViewController: UITableViewController {
         super.viewDidLoad()
         
        // var id:String="133604"
-        
+        print("\(id)1")
+
         teamDetailsViewModel.seturl(idTeam:id)
 
         teamDetailsViewModel.bindTeamDetailsViewModelToView = {

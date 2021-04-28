@@ -8,12 +8,26 @@
 
 import Foundation
 
-struct AllLeaguesResponse:Codable{
-        var leagues:[AllLeague]?
-    }
-    struct AllLeague : Codable {
-        
-        var idLeague:String
-        var strSport : String
-    }
 
+struct League : Codable {
+
+
+        let idLeague : String?
+        let strLeague : String?
+        let strLeagueAlternate : String?
+        let strSport : String?
+       
+
+        enum CodingKeys: String, CodingKey {
+                case idLeague = "idLeague"
+                case strLeague = "strLeague"
+                case strLeagueAlternate = "strLeagueAlternate"
+                case strSport = "strSport"
+                
+        }
+
+}
+
+struct LeagueAPI : Codable {
+    let leagues : [League]?
+}

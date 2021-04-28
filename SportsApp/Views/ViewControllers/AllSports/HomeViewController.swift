@@ -17,12 +17,15 @@ class HomeViewController: UIViewController {
     
     var arrayOfAllSports=[AllSports]()
     let allSportsViewModel = AllSportsViewModel()
+    @IBOutlet weak var connImg: UIImageView!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var homeCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-  
+        connImg.image = UIImage(named: "conn")
+
+        connImg.isHidden = true
         homeCollectionView.dataSource=self
         homeCollectionView.delegate=self
         homeCollectionView.collectionViewLayout=UICollectionViewFlowLayout()
@@ -33,7 +36,8 @@ class HomeViewController: UIViewController {
         if reachability.connection == .unavailable{
             
             ActivityIndicatorView.stopAnimating(indicator: indicator)
-            showAlert(title:"Error",message:"No Internet Connection")
+//            showAlert(title:"Error",message:"No Internet Connection")
+            connImg.isHidden = false
                     
         }else{
             allSportsViewModel.bindAllSportsViewModelToView = {
@@ -102,12 +106,11 @@ extension HomeViewController:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let leagueView : LeagueTableViewController  = (self.storyboard?.instantiateViewController(withIdentifier: "LeagueTableViewController"))! as! LeagueTableViewController
         
-        leagueView.strSport = arrayOfAllSports[indexPath.row].strSport
+        leagueView.Strsport = arrayOfAllSports[indexPath.row].strSport
         print(arrayOfAllSports[indexPath.row].idSport)
         print(arrayOfAllSports[indexPath.row].strSport)
         print(arrayOfAllSports[indexPath.row].strSportThumb)
-        //self.navigationController?.pushViewController(leagueView, animated: true)
-        present(leagueView, animated: true, completion: nil)
+        self.navigationController?.pushViewController(leagueView, animated: true)
 
     }
 }

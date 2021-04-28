@@ -7,55 +7,79 @@
 //
 import Foundation
 
-class EventsViewModel: NSObject {
-    
-    var eventsService : EventsService!
-   
-    var events : [[String : String?]]! {
+class EventsViewModel {
+    let eventService = EventsService()
+    var round = "1"
+    var season = "2020-2021"
+    var comingEvents : [Event]!{
         didSet{
-            
-            self.bindEventsViewModelToView()
+            bindComingEventsWithView()
         }
-        
     }
-    var showError : String! {
-        
+    
+    var pastEvents : [Event]!{
         didSet{
-            
-            self.bindViewModelErrorToView()
+            bindPassedEventsWithView()
         }
-        
+    }
+    var teams : [Teams]!{
+        didSet{
+            bindTeamsWithView()
+        }
     }
     
-    var bindEventsViewModelToView : (()->()) = {}
-    var bindViewModelErrorToView : (()->()) = {}
-    
-    
-    override init() {
-        
-        super .init()
-        self.eventsService = EventsService()
+    var comingEventError : String!{
+        didSet{
+            bindComingEventsErrorWithView()
+        }
     }
     
+    var bindTeamsWithView:(()->()) = {}
+    var bindComingEventsWithView:(()->()) = {}
+    var bindPassedEventsWithView:(()->()) = {}
+    var bindTeamsErrorWithView:(()->()) = {}
+    var bindComingEventsErrorWithView:(()->()) = {}
+    var bindPassedEventsErrorWithView:(()->()) = {}
     
-    func fetchEventsDataFromAPI (id:String){
-        
-        eventsService.fetchEventsData(id: id, completion: { (event, error) in
-            
-            if let error : Error = error{
-                
-                let message = error.localizedDescription
-                self.showError = message
-                
+    
+    func getPassedEvents(leagueId:String){
+        eventService.getPassedEvents(leagueId: leagueId) { (pastEvents, error) in
+            if let events:[Event] = pastEvents{
+                print("old round \(events[0].intRound!)")
+                self.round = String("\(Int(events[0].intRound!)!+1)")
+                print("new round \(self.round)")
+
+                self.pastEvents = events
+                print(events)
             }else{
-                
-                self.events = event
+                print(error?.localizedDescription as Any)
                 
             }
-           
-        })
+        }
     }
+    
+    func getTeamsInLeague(leagueStr:String){
+        eventService.getTeamsInLeague(leagueStr: leagueStr) { (teams, error) in
+            if let teams:[Teams] = teams{
+                self.teams = teams
+            }else{
+                print(error?.localizedDescription as Any)
+            }
+        }
+    }
+    
+    func getUpcomingEvents(_ leagueId: String){
+        eventService.getUpcomingEvents(leagueId, round, season) { (events, error) in
+            if let events = events{
+                self.comingEvents = events
+                print(events)
+                print("c delivered")
+            }else{
+                self.comingEventError = error?.localizedDescription
+                print("error for coming events")
+            }
+        }
+    }
+    
 
 }
-
-

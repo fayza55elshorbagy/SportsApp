@@ -14,17 +14,14 @@ import Alamofire
 
 
 class AllLeaguesService{
-    var allLeagues = [AllLeague]()
-    
-    
-    // MARK: - All Leagues
-    func getAllLeagues(sportName : String, completion : @escaping ([AllLeague]?, Error?)->()){
-        AF.request(URLs.getAllLeagues).validate().responseDecodable(of: AllLeaguesResponse.self) { (response) in
+    var allLeagues = [League]()
+
+    func getAllLeagues(sportName : String, completion : @escaping ([League]?, Error?)->()){
+        AF.request(URLs.getAllLeagues).validate().responseDecodable(of: LeagueAPI.self) { (response) in
                 switch response.result {
                 case .success( _):
                     guard let leagues = response.value?.leagues else { return }
                     for league in leagues {
-                        
                         if league.strSport == sportName {
                             self.allLeagues.append(league)
                         }
@@ -36,16 +33,17 @@ class AllLeaguesService{
             }
     }
     
-    func getLeaugesDetail(leagueId:String,completion : @escaping (League?, Error?)->()){
+    func getLeaugesDetail(leagueId:String,completion : @escaping (LeaugeDetail?, Error?)->()){
         let url = String("\(URLs.getLeagueDetails)\(leagueId)")
-        AF.request(url).validate().responseDecodable(of: LeagueDetailsResponse.self) { (response) in
+        AF.request(url).validate().responseDecodable(of: LeagueDetailAPI.self) { (response) in
                 switch response.result {
                 case .success( _):
-                    guard let dataResponse = response.value else { return }
-                    completion(dataResponse.leagues[0],nil)
+                    guard let leagues = response.value?.leagues else { return }
+                    completion(leagues[0],nil)
                 case .failure(let error):
                     completion(nil , error)
                 }
             }
     }
+    
 }

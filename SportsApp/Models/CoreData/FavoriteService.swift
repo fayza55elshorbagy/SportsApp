@@ -18,7 +18,7 @@ class FavoriteService {
         appDelegte = UIApplication.shared.delegate as? AppDelegate
     }
     
-    func saveLeagueToFavorite(favoriteItem: AllLeagues) {
+    func saveLeagueToFavorite(favoriteItem: LeaugeDetail) {
         print(favoriteItem)
         
         let context = appDelegte!.persistentContainer.viewContext
@@ -27,8 +27,10 @@ class FavoriteService {
         
         favoriteMngObj?.setValue(favoriteItem.idLeague, forKey: "idLeague")
         favoriteMngObj?.setValue(favoriteItem.strLeague, forKey: "strLeague")
-        favoriteMngObj?.setValue(favoriteItem.strLeagueThumb, forKey: "strLeagueThumb")
+        favoriteMngObj?.setValue(favoriteItem.strBadge, forKey: "strBadge")
         favoriteMngObj?.setValue(favoriteItem.strYoutube, forKey: "strYoutube")
+        favoriteMngObj?.setValue(favoriteItem.strBadge, forKey: "strCurrentSeason")
+        favoriteMngObj?.setValue(favoriteItem.strYoutube, forKey: "strSport")
         
         do{
             try context.save()
@@ -78,17 +80,15 @@ class FavoriteService {
                 return nil
             }
         }
-    func getFavoriteLeagues(completion : @escaping ([AllLeagues]?, Error?)->()){
-        var list = [AllLeagues]()
+    func getFavoriteLeagues(completion : @escaping ([LeaugeDetail]?, Error?)->()){
+        var list = [LeaugeDetail]()
         let context = appDelegte!.persistentContainer.viewContext
        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: "Favorites")
         do{
             let moviesMngObjArr = try context.fetch(fetchReq)
             for mngObj in moviesMngObjArr {
-                let league = AllLeagues(idLeague: mngObj.value(forKey: "idLeague") as! String,
-                           strLeague: mngObj.value(forKey: "strLeague") as! String,
-                           strLeagueThumb: mngObj.value(forKey: "strLeagueThumb") as! String,
-                           strYoutube: mngObj.value(forKey: "strYoutube") as! String)
+                let league = LeaugeDetail(idLeague: (mngObj.value(forKey: "idLeague") as! String), strBadge:(mngObj.value(forKey: "strBadge") as! String), strLeague: (mngObj.value(forKey: "strLeague") as! String), strSport: "", strYoutube: (mngObj.value(forKey: "strYoutube") as! String), strCurrentSeason: "")
+
                 list.append(league)
             }
             completion(list,nil)

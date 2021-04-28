@@ -10,16 +10,16 @@ import Foundation
 
 class AllLeaguesViewModel{
     let leaguesService = AllLeaguesService()
-    var allLeagues = [AllLeague]()
-    var league = [League]()
+    var leaguesDetails = [LeaugeDetail]()
+    var leagues = [League]()
     
     var errorMessage:String!{
         didSet{
-         }
+            
+        }
     }
-    var leaguesDetailCompleted:[League]!{
+    var leaguesDetailCompleted:[LeaugeDetail]!{
         didSet{
-//            print(leaguesDetails.count)
             self.bindLeaguesToView()
         }
     }
@@ -28,10 +28,9 @@ class AllLeaguesViewModel{
 
     func getAllLeagues(sportName : String){
         leaguesService.getAllLeagues(sportName : sportName) { (leagues, error) in
-            if let comingLeauges:[AllLeague] = leagues{
-                self.allLeagues = comingLeauges
-                print("count is \(self.allLeagues.count)")
-                
+            if let comingLeauges:[League] = leagues{
+                self.leagues = comingLeauges
+                print("count is \(self.leagues.count)")
                 self.getAllLeaguesDetail()
             }else{
                 print("NotWroking")
@@ -40,25 +39,21 @@ class AllLeaguesViewModel{
         }
     }
     
-    
-    
     func getAllLeaguesDetail(){
         
-        for league in allLeagues {
-           
-                leaguesService.getLeaugesDetail(leagueId: league.idLeague) { (leagueDetail, error) in
-                    if let detail:League = leagueDetail{
-                        self.league.append(detail)
-                        print("dddddddd\(detail)")
-                        //self.leaguesDetailCompleted = self.league
-                        print("hhhhhhhhhhhhhhhhhhhhh")
-                        print(detail.idLeague)
-                        
+        for league in leagues {
+            if league.strLeague != nil {
+                leaguesService.getLeaugesDetail(leagueId: league.idLeague!) { (leagueDetail, error) in
+                    if let detail:LeaugeDetail = leagueDetail{
+                        print(detail.strLeague! as Any)
+                        self.leaguesDetails.append(detail)
+                        self.leaguesDetailCompleted = self.leaguesDetails
                     }
-                    print("Modsfjsfiluhdsuif")
-                    print(self.league.count)
                 }
             }
-        
+        }
     }
+    
+    
 }
+
