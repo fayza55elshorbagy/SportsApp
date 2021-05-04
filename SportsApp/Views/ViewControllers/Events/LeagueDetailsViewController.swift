@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import SkeletonView
 
 class LeagueDetailsViewController: UIViewController {
     
@@ -33,18 +34,29 @@ class LeagueDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(leagueId)from 2" )
+        bindToViewModel()
+
         if(favoriteViewModel.isFavorite(idTeam: leagueId)){
             likeToggle.setImage(UIImage(named:"redHeart"), for: .normal)
 
         }
 
     }
-    
     override func viewWillAppear(_ animated: Bool) {
-        bindCollectionViews()
-        bindToViewModel()
+        super.viewDidAppear(animated)
+        print("first")
 
+        upcomingEventCollection.isSkeletonable = true
+        upcomingEventCollection.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .clouds), animation: nil, transition: .crossDissolve(0.25))
+        
+        passedEventCollection.isSkeletonable = true
+        passedEventCollection.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .clouds), animation: nil, transition: .crossDissolve(0.25))
+        
+        teamsCollection.isSkeletonable = true
+        teamsCollection.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .clouds), animation: nil, transition: .crossDissolve(0.25))
+        bindCollectionViews()
     }
+    
     
     func bindCollectionViews(){
         //connecting collection to controller
@@ -84,17 +96,38 @@ class LeagueDetailsViewController: UIViewController {
     func didReceiveTeams(){
         teams = viewModel.teams
         print(teams)
+        if(teams != nil){
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                       self.teamsCollection.stopSkeletonAnimation()
+                       self.view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                           
+                                 })
+        }
         teamsCollection.reloadData()
     }
 
     func didReceiveComingEvents(){
         comingEvents = viewModel.comingEvents
+        if(comingEvents != nil){
+               DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                          self.upcomingEventCollection.stopSkeletonAnimation()
+                          self.view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                              
+                                    })
+           }
         upcomingEventCollection.reloadData()
         print("comingEvents")
     }
 
     func didReceivePastEvents(){
         passedEvents = viewModel.pastEvents
+        if(passedEvents != nil){
+               DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                          self.passedEventCollection.stopSkeletonAnimation()
+                          self.view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                              
+                                    })
+           }
         passedEventCollection.reloadData()
     }
     
@@ -131,7 +164,28 @@ class LeagueDetailsViewController: UIViewController {
 
 
 // MARK: - Collection Views
-extension LeagueDetailsViewController : UICollectionViewDelegate, UICollectionViewDataSource{
+extension LeagueDetailsViewController : UICollectionViewDelegate,SkeletonCollectionViewDataSource{
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+          if skeletonView == self.upcomingEventCollection{
+                  return "upcomingEventCell"
+              }else if skeletonView == self.passedEventCollection{
+                  return "FinishedEventCell"
+              }else{
+                 return "TeamCell"
+              }
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if skeletonView == self.upcomingEventCollection{
+            return 5
+        }else if skeletonView == self.passedEventCollection{
+            return 5
+        }else{
+           return 9
+        }
+    }
+    
     
     
 

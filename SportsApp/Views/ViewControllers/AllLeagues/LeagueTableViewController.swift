@@ -29,7 +29,7 @@ let viewModel = AllLeaguesViewModel()
         print("first")
 
         tableView.isSkeletonable = true
-        tableView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .lightGray), animation: nil, transition: .crossDissolve(0.25))
+        tableView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .clouds), animation: nil, transition: .crossDissolve(0.25))
     }
     
     override func viewDidLoad() {
@@ -37,15 +37,7 @@ let viewModel = AllLeaguesViewModel()
         print("second")
 
         self.searchBar.delegate = self
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
-            if(self.leagues.count > 0){
-                self.tableView.stopSkeletonAnimation()
-                self.view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
-            }
-            else{
-                
-            }
-                  })
+        
         self.viewModel.bindLeaguesToView = {
                     self.didReciveLeague()
                           }
@@ -55,6 +47,14 @@ let viewModel = AllLeaguesViewModel()
     func didReciveLeague(){
         leagues = viewModel.leaguesDetailCompleted
         print("from view controller")
+        if(leagues != nil){
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                       self.tableView.stopSkeletonAnimation()
+                       self.view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                  
+                         })
+        }
+      
         tableView.reloadData()
     }
     
@@ -123,9 +123,9 @@ let viewModel = AllLeaguesViewModel()
         cell.leagueImage.layer.masksToBounds = false
         cell.leagueImage.clipsToBounds = true
       
-        cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowOffset = CGSize(width: 0, height: 0)
-        cell.layer.shadowOpacity = 0.6
+//        cell.layer.shadowColor = UIColor.black.cgColor
+//        cell.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        cell.layer.shadowOpacity = 0.6
        
            return cell
     }

@@ -11,9 +11,7 @@ import Foundation
 import Alamofire
 
 
-
-
-class AllLeaguesService{
+class AllLeaguesService : NetworkServiceContracts{
     var allLeagues = [League]()
 
     func getAllLeagues(sportName : String, completion : @escaping ([League]?, Error?)->()){

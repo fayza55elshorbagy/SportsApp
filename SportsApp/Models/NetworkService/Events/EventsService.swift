@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class EventsService{
+class EventsService {
     
     // MARK: - League Details
     func getPassedEvents(leagueId:String,completion : @escaping ([Event]?, Error?)->()){

@@ -20,9 +20,9 @@ override func awakeFromNib() {
     super.awakeFromNib()
 
 
-    self.backView.layer.borderWidth = 1
-    self.backView.layer.cornerRadius = 25
-    self.backView.clipsToBounds = true
+//    self.backView.layer.borderWidth = 1
+//    self.backView.layer.cornerRadius = 25
+//    self.backView.clipsToBounds = true
 
 }
     
